@@ -24,9 +24,9 @@ namespace name
 		void activate_player_name(std::string new_name)
 		{
 			player_name.access([&](std::string& name)
-			{
-				name = std::move(new_name);
-			});
+				{
+					name = std::move(new_name);
+				});
 		}
 
 		void update_player_name(const std::string& new_name)
@@ -77,14 +77,15 @@ namespace name
 		void post_unpack() override
 		{
 			command::add("name", [](const command::params& params)
-			{
-				if (params.size() != 2)
 				{
-					return;
-				}
+					if (params.size() != 2)
+					{
+						return;
+					}
 
-				update_player_name(params[1]);
-			});
+					update_player_name(params[1]);
+					load_player_name();
+				});
 		}
 
 		component_priority priority() const override
